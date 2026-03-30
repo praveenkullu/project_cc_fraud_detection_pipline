@@ -24,7 +24,7 @@ MODELS_DIR = Path(__file__).parent.parent / "models"
 
 def register_existing_models():
     """Register Phase 1 models in MLflow and set production alias."""
-    mlflow_uri = os.environ.get("MLFLOW_TRACKING_URI", "http://localhost:5001")
+    mlflow_uri = os.environ.get("MLFLOW_TRACKING_URI", "http://localhost:5000")
     mlflow.set_tracking_uri(mlflow_uri)
 
     # Register XGBoost model

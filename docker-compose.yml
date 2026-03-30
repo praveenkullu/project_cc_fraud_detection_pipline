@@ -2,7 +2,7 @@ services:
   api:
     build: .
     ports:
-      - "8000:8000"
+      - "8001:8001"
     environment:
       - DATABASE_URL=postgresql+psycopg2://fraud_user:fraud_pass@db:5432/fraud_db
       - REDIS_URL=redis://redis:6379/0
@@ -81,11 +81,14 @@ services:
 
   mlflow:
     image: ghcr.io/mlflow/mlflow:latest
+    # user: "root"
     ports:
       - "5000:5000"
-    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlflow/artifacts
+    # command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlflow/artifacts
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri sqlite:///mlflow.db --artifacts-destination /mlflow/mlartifacts --default-artifact-root mlflow-artifacts:/ --serve-artifacts
     volumes:
-      - mlflow-data:/mlflow
+      - ../.mlflow-data:/mlflow
+    working_dir: /mlflow
     networks:
       - fraud-net
     healthcheck:
@@ -123,7 +126,9 @@ services:
 
 volumes:
   pgdata:
+    name: project_cc_fraud_detection_pipline-pgdata
   mlflow-data:
+    name: project_cc_fraud_detection_pipline-mlflow-data
 
 networks:
   fraud-net:
