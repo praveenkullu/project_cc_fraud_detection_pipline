@@ -1,1 +1,33 @@
+# Claude Code internal
 .claude/
+
+# Planning docs (internal)
+.ext/
+CLAUDE.md
+
+# Dataset files (too large for git)
+*.csv
+data/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# MLflow runs (local)
+mlruns/
+
+# Model artifacts in data/ (tracked in models/ instead)
+xgb_base
+xgb_smt
+
+# OS
+.DS_Store
