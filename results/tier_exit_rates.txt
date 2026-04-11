@@ -1,0 +1,21 @@
+Tier Exit Rate Analysis
+========================================
+
+Total scored transactions: 1000
+
+  hard_rules          :   252 ( 25.2%)
+  velocity            :   327 ( 32.7%)
+  ml_scoring          :   421 ( 42.1%)
+
+Latency Statistics (ms)
+========================================
+  p50:      5.29
+  p95:     58.50
+  p99:    137.01
+  mean:    26.06
+  min:      1.75
+  max:    402.82
+
+Decision Distribution
+========================================
+  decline             :  1000

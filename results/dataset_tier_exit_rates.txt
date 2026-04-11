@@ -1,0 +1,31 @@
+Dataset Benchmark — Tier Exit Rate Analysis
+========================================
+
+Total scored transactions: 1000
+  fraud (actual):          35
+  legitimate (actual):     965
+
+  hard_rules          :     0 (  0.0%)
+  velocity            :     0 (  0.0%)
+  ml_scoring          :  1000 (100.0%)
+
+Latency Statistics (ms)
+========================================
+  p50:     86.19
+  p95:    182.36
+  p99:    218.04
+  mean:    98.58
+  min:     76.53
+  max:    304.28
+
+Decision Distribution
+========================================
+  approve             :   775 ( 77.5%)
+  manual_review       :   182 ( 18.2%)
+  decline             :    41 (  4.1%)
+  step_up_auth        :     2 (  0.2%)
+
+Accuracy vs Ground Truth
+========================================
+  Fraud recall (declined):  20/35 (57.1%)
+  Legit approval rate:      944/965 (97.8%)

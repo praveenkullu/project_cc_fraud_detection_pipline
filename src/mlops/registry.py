@@ -21,6 +21,20 @@ def register_model(
     return mlflow.register_model(model_uri=model_uri, name=model_name)
 
 
+def _load_native_model(model_uri: str):
+    """Load a model using its native flavor (xgboost or sklearn) so that
+    predict_proba / score_samples are available on the returned object."""
+    try:
+        return mlflow.xgboost.load_model(model_uri)
+    except Exception:
+        pass
+    try:
+        return mlflow.sklearn.load_model(model_uri)
+    except Exception:
+        pass
+    return mlflow.pyfunc.load_model(model_uri)
+
+
 def get_production_model(model_name: str) -> tuple:
     """Load the production model from the registry.
 
@@ -33,9 +47,7 @@ def get_production_model(model_name: str) -> tuple:
         version_info = client.get_model_version_by_alias(
             name=model_name, alias="production"
         )
-        model = mlflow.pyfunc.load_model(
-            model_uri=f"models:/{model_name}@production"
-        )
+        model = _load_native_model(f"models:/{model_name}@production")
         return model, {
             "version": version_info.version,
             "run_id": version_info.run_id,
@@ -54,9 +66,7 @@ def get_production_model(model_name: str) -> tuple:
         )
 
     latest = max(versions, key=lambda v: int(v.version))
-    model = mlflow.pyfunc.load_model(
-        model_uri=f"models:/{model_name}/{latest.version}"
-    )
+    model = _load_native_model(f"models:/{model_name}/{latest.version}")
     return model, {
         "version": latest.version,
         "run_id": latest.run_id,

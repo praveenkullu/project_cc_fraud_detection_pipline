@@ -197,7 +197,7 @@ def save_results(latencies, decisions, tier_exits, n):
 
 def main():
     parser = argparse.ArgumentParser(description="Fraud pipeline latency benchmark")
-    parser.add_argument("--url", default="http://localhost:8000", help="API base URL")
+    parser.add_argument("--url", default="http://localhost:8001", help="API base URL")
     parser.add_argument("--n", type=int, default=1000, help="Number of transactions")
     args = parser.parse_args()
 
